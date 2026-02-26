@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Razorpay Test Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+<h2>Razorpay Test Payment</h2>
+<button id="payBtn">Pay Now</button>
+
+<script>
+    document.getElementById("payBtn").onclick = function () {
+
+        var options = {
+            "key": "rzp_test_SHZW7wJJzzi5Gl",
+            "amount": "50",
+            "currency": "INR",
+            "name": "Cosmic Store",
+            "description": "Test Transaction",
+            "order_id": "order_SHgBFVyEYyDh7V",
+
+            "handler": function (response) {
+                alert("Payment Successful!");
+
+                console.log("razorpay_payment_id: " + response.razorpay_payment_id);
+                console.log("razorpay_order_id: " + response.razorpay_order_id);
+                console.log("razorpay_signature: " + response.razorpay_signature);
+
+                alert(
+                    "PaymentId: " + response.razorpay_payment_id + "\n" +
+                    "OrderId: " + response.razorpay_order_id + "\n" +
+                    "Signature: " + response.razorpay_signature
+                );
+            }
+        };
+
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    };
+</script>
+
+</body>
+</html>

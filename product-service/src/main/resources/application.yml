@@ -1,0 +1,70 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: product-service
+
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
+
+  datasource:
+    url: jdbc:postgresql://postgres-db:5432/cosmic_db
+    username: postgres
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: Product Service
+    description: Product Microservice for Cosmic
+    version: 1.0.0
+
+logging:
+  level:
+    com.cosmic.product_service: INFO
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    config-url: /product-service/v3/api-docs/swagger-config
+    url: /product-service/v3/api-docs
+jwt:
+  secret: your_very_long_secret_key_here_256bit_minimum
+  expiration: 86400000
+
+app:
+  base-url: http://localhost:8081
+aws:
+  s3:
+    bucket-name: cosmic-product-images
+    region: ap-south-1
+
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_KEY}
